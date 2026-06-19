@@ -1,0 +1,12 @@
+flask
+tensorflow
+pennylane
+pennylane-qiskit
+pennylane-lightning
+pandas
+numpy
+Pillow
+opencv-python
+matplotlib
+reportlab
+scikit-learnp
