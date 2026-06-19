@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hybrid Quantum Medical AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR: sticky and full width at the very top -->
+    <header>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <span class="logo">Hybrid Quantum Medical AI</span>
+            <div class="nav-buttons">
+                <a href="{{ url_for('home') }}">Home</a>
+                {% if current_user.role == "patient" %}
+                   
+                    <a href="{{ url_for('quantum_visual') }}">Quantum Visual</a>
+                    <a href="{{ url_for('patient_dashboard') }}">Patient Dashboard</a>
+                {% endif %}
+                {% if current_user.role == "doctor" %}
+                    <a href="{{ url_for('doctor_dashboard') }}">Doctor Panel</a>
+                {% endif %}
+                {% if current_user.role == "admin" %}
+                    <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+
+    <!-- Padding to main content so navbar doesn't overlap -->
+    <main class="main-container">{% block content %}{% endblock %}</main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

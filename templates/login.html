@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="form-bg">
+
+<div class="form-card">
+
+    <h2>Login</h2>
+
+    <div class="avatar">👤</div>
+
+    <p class="subtitle">Welcome! Please login to your account</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p style="color:red; text-align:center;">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login">
+
+        <input type="text" name="username" placeholder="Username" required>
+
+        <div class="password-box">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <span id="toggleEye">👁️</span>
+        </div>
+
+        <div class="extra-options">
+            <label class="remember">
+                <input type="checkbox">
+                <span>Remember me</span>
+            </label>
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" id="loginBtn">Login</button>
+
+    </form>
+
+    <p class="register-text">
+        Don't have an account? 
+        <a href="/register">Register</a>
+    </p>
+
+</div>
+
+<!-- ✅ JS at bottom (VERY IMPORTANT) -->
+<script>
+    const toggleEye = document.getElementById("toggleEye");
+    const password = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+
+    // 👁️ Toggle password
+    toggleEye.addEventListener("click", function () {
+        if (password.type === "password") {
+            password.type = "text";
+            toggleEye.textContent = "🙈";
+        } else {
+            password.type = "password";
+            toggleEye.textContent = "👁️";
+        }
+    });
+
+    // 🔄 Loading effect
+    loginBtn.addEventListener("click", function () {
+        loginBtn.innerHTML = "Logging in...";
+    });
+</script>
+
+</body>
+</html>

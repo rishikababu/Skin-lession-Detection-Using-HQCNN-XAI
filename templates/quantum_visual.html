@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="quantum-section">
+
+<h2 class="quantum-title">Quantum Processing Visualization</h2>
+
+<div class="quantum-flow">
+
+    <div class="box" onclick="showInfo('cnn')">
+        CNN Feature Extraction
+    </div>
+
+    <div class="arrow">➡</div>
+
+    <div class="box quantum" onclick="showInfo('quantum')">
+        Quantum Circuit Simulation
+    </div>
+
+    <div class="arrow">➡</div>
+
+    <div class="box" onclick="showInfo('final')">
+        Final Classification
+    </div>
+
+</div>
+
+<!-- Explanation Box -->
+<div id="infoBox" class="info-box">
+    <span class="close-btn" onclick="closeInfo()">✖</span>
+    <p id="infoText"></p>
+</div>
+
+</div>
+
+<script>
+function showInfo(type){
+    const infoBox = document.getElementById("infoBox");
+    const infoText = document.getElementById("infoText");
+
+    if(type === "cnn"){
+        infoText.innerHTML =
+        "CNN Feature Extraction: The uploaded skin image is processed using convolutional layers to extract important features such as color variation, texture patterns, and lesion boundaries.";
+    }
+    else if(type === "quantum"){
+        infoText.innerHTML =
+        "Quantum Circuit Simulation: Extracted features are encoded into quantum states. A simulated quantum circuit processes these features using quantum gates to enhance pattern recognition capability.";
+    }
+    else if(type === "final"){
+        infoText.innerHTML =
+        "Final Classification: The hybrid classical-quantum model outputs the predicted disease class along with confidence score based on processed features.";
+    }
+
+    infoBox.style.display = "block";
+}
+
+function closeInfo(){
+    document.getElementById("infoBox").style.display = "none";
+}
+</script>
+
+{% endblock %}

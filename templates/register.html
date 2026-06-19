@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="form-bg">
+
+<div class="form-card">
+
+<h2>Create Account</h2>
+
+<!-- ✅ FLASH MESSAGE DISPLAY -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color:green;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form method="POST" action="/register">
+
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <select name="role" required>
+        <option value="patient">Patient</option>
+        <option value="doctor">Doctor</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <button type="submit">Register</button>
+
+</form>
+
+</div>
+</body>
+</html>

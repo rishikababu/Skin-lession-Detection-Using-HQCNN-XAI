@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <h2>Admin Analytics Dashboard</h2>
+</div>
+
+<div class="dashboard-cards">
+
+    <div class="dashboard-card">
+        <div class="card-icon">📊</div>
+        <div class="card-content">
+            <h3>Total Predictions</h3>
+            <p>{{ total_predictions }}</p>
+        </div>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-icon">👤</div>
+        <div class="card-content">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Disease Chart -->
+
+<div class="chart-container">
+    <h3>Disease Distribution</h3>
+    <canvas id="diseaseChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const labels = {{ labels | tojson }};
+const values = {{ values | tojson }};
+
+new Chart(document.getElementById("diseaseChart"), {
+    type: "pie",
+    data: {
+        labels: labels,
+        datasets: [{
+            data: values,
+            backgroundColor: [
+                "#22c55e",
+                "#14b8a6",
+                "#3b82f6",
+                "#f59e0b",
+                "#ef4444"
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+</script>
+
+{% endblock %}

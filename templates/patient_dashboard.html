@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>👤 Patient Dashboard</h2>
+
+<!-- 🔍 Search -->
+<form method="GET" action="{{ url_for('patient_dashboard') }}">
+    <input type="text" name="search" placeholder="Search patient name..." value="{{ request.args.get('search', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+<br>
+
+<table border="1" cellpadding="10">
+<tr>
+    <th>Patient ID</th>
+    <th>Patient Name</th>
+    <th>Disease</th>
+    <th>Confidence</th>
+    <th>Status</th>
+    <th>Report</th>
+    <th>Date</th>
+</tr>
+
+{% for r in records %}
+<tr>
+    <td>PAT{{ r.user_id }}</td>
+    <td>{{ r.patient_name }}</td>
+    <td>{{ r.disease }}</td>
+    <td>{{ "%.2f"|format(r.confidence*100) }}%</td>
+    <td>{{ r.status }}</td>
+
+    <td>
+        {% if r.report_path %}
+        <a href="{{ url_for('static', filename=r.report_path.replace('static/', '')) }}" target="_blank">
+            View PDF
+        </a>
+        {% else %}
+        No Report
+        {% endif %}
+    </td>
+
+    <td>{{ r.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+</tr>
+{% endfor %}
+
+</table>
+<a href="#" 
+   onclick="window.history.length > 1 ? history.back() : window.location.href='{{ url_for('home') }}'; return false;" 
+   class="back-btn back-btn-fixed">
+    &#8592; Back
+</a>
+
+{% endblock %}

@@ -1,1 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
 
+<div class="hero fade-in">
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash-error" style="background-color: #ff4d4d; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); animation: shake 0.5s;">
+            <strong>⚠️ Notice:</strong> {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h1>AI Medical Cell Diagnosis</h1>
+    <p>Upload medical cell image for real-time disease detection</p>
+
+    <div class="upload-card slide-up">
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="imageUpload" required>
+            <img id="preview" style="max-width: 100%; margin-top: 10px; border-radius: 5px;" />
+            <button type="submit">Analyze Now</button>
+        </form>
+    </div>
+
+</div>
+
+<style>
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+</style>
+
+{% endblock %}

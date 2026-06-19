@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction Result</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="result-card">
+    <h2>Prediction Result</h2>
+
+    <img src="/{{ image }}" class="result-img" width="300">
+    <h3>Predicted Disease: {{ disease }}</h3>
+    <h3>Predicted Age: {{ age }}</h3>
+    <h3>Predicted Sex: {{ sex }}</h3>
+    <h3>Severity Stage: {{ severity['stage'] }}</h3>
+    <h3>Confidence: {{ confidence|round(3) }}</h3>
+    <h3>Localization: {{ localization | capitalize }}</h3>
+    <h4>Possible Cause</h4>
+    <p>{{ cause }}</p>
+    <h3>Heatmap</h3>
+     {% if heatmap %}
+         <img src="{{ heatmap }}" width="256">
+     {% else %}
+      <p>Heatmap was not generated.</p>
+    {% endif %}
+     <a href="{{ url_for('show_heatmap', heatmap_path=heatmap) }}">
+    <button>View Heatmap</button>
+</a>
+    <div class="ai-section">
+    
+    <p>
+        The model highlights regions contributing most to the prediction.
+        Red areas indicate strong influence.
+        Blue areas indicate low influence.
+        This improves transparency and clinical trust.
+      </p>
+    </div>
+
+    <div class="report-btn">
+      <a href="/{{ report }}" class="btn" download>
+        Download PDF Report
+      </a>
+    </div>
+    
+    <canvas id="severityChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+    <script> 
+        var ctx = document.getElementById('severityChart');
+        new Chart(ctx, {type:'bar' ,data: {labels: ['Severity Score'],datasets: [{data: [{{ confidence }}]}]}});
+    </script>
+
+</div>
+<div style="text-align:center; margin-top:30px;">
+    <a href="#" 
+   onclick="window.history.length > 1 ? history.back() : window.location.href='{{ url_for('home') }}'; return false;" 
+   class="back-btn back-btn-fixed">
+    &#8592; Back
+</a>
+
+</div>
+
+</body>
+</html>

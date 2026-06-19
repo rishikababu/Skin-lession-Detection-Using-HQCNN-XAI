@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Doctor Review Panel</h2>
+
+<table border="1">
+<tr>
+<th>Patient ID</th>
+<th>Patient Name</th>
+<th>Disease</th>  
+<th>Confidence</th>
+<th>Status</th>
+<th>Date & Time</th>
+<th>Action</th>
+</tr>
+
+{% for r in records %}
+<tr>
+<td>PAT{{ r.user_id }}</td>
+<td>{{ r.username }}</td>
+<td>{{ r.disease }}</td>
+<td>{{ r.confidence }}</td>
+
+<!-- ✅ STATUS -->
+<td>{{ r.status }}</td>
+
+<!-- ✅ DATE -->
+<td>
+    {% if r.created_at %}
+        {{ r.created_at.strftime('%d-%m-%Y %H:%M') }}
+    {% else %}
+        N/A
+    {% endif %}
+</td>
+
+<!-- ✅ ACTION -->
+<td>
+{% if r.status == "Pending" %}
+    <a href="{{ url_for('approve', id=r.id) }}" 
+       style="color: white; background-color: #28a745; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+       Approve
+    </a> 
+
+    <a href="{{ url_for('reject', id=r.id) }}" 
+       style="color: white; background-color: #dc3545; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+       Reject
+    </a>
+
+{% else %}
+    <span style="color: white; background-color: gray; padding: 5px 10px; border-radius: 5px;">
+        {{ r.status }}
+    </span>
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

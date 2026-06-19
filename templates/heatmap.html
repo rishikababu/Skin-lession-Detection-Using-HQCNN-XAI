@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heatmap View</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="result-card">
+    <h2>Generated Heatmap</h2>
+    <img src="/{{ heatmap }}" class="result-img zoomable" id="heatmapImage" width="500">
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImg">
+    </div>
+
+    <br><br>
+    <a href="javascript:history.back()" class="btn">⬅ Back to Result</a>
+</div>
+
+</body>
+</html>
